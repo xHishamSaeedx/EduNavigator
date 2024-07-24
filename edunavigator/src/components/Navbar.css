@@ -1,0 +1,56 @@
+.navbar {
+  background-color: #007bff; /* Lighter blue color */
+  padding: 10px 20px; /* Padding around the navbar */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Optional shadow for a subtle 3D effect */
+  display: flex;
+  justify-content: space-between; /* Space out items to left and right */
+  align-items: center; /* Center items vertically */
+  position: fixed; /* Fix the navbar to the top */
+  top: 0; /* Position it at the top */
+  left: 0; /* Align it to the left */
+  width: 100%; /* Full width */
+  z-index: 1000; /* Ensure it stays above other content */
+}
+
+.navbar .logo {
+  font-size: 1.5rem; /* Larger font size for logo */
+  font-weight: bold;
+  color: #ffffff; /* White text color */
+  text-decoration: none; /* Remove underline from link */
+  padding: 10px 20px; /* Padding around logo */
+}
+
+.navbar .nav-links {
+  display: flex; /* Horizontal layout for list items */
+  list-style: none; /* Remove default list styling */
+  margin: 0;
+  padding: 0;
+  gap: 20px; /* Space between items */
+  margin-right: 80px; /* Margin to move the links inward from the right edge */
+}
+
+.navbar li {
+  margin: 0;
+}
+
+.navbar a {
+  color: #ffffff; /* White text color */
+  text-decoration: none; /* Remove underline from links */
+  font-weight: bold;
+  padding: 12px 24px; /* Increase padding inside links */
+  border-radius: 5px; /* Rounded corners */
+  font-size: 1.1rem; /* Slightly larger font size */
+  transition: all 0.3s ease; /* Smooth transition for all changes */
+}
+
+.navbar a:hover {
+  background-color: #0056b3; /* Darker blue for hover effect */
+  color: #ffffff; /* Ensure text remains white on hover */
+  transform: scale(1.1); /* Slightly enlarge button on hover */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Add shadow for a 3D effect */
+}
+
+.navbar a.active {
+  background-color: #003d7a; /* Darkest blue for active link */
+  color: #ffffff; /* Ensure text remains white for active link */
+}

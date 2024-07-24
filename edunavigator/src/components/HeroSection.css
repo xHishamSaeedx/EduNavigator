@@ -1,0 +1,74 @@
+.hero {
+  position: relative;
+  width: 100%;
+  height: 100vh; /* Full viewport height */
+  background: url("./hero.jpg") no-repeat center center;
+  background-size: cover;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white; /* White text for contrast */
+  text-align: center; /* Center-aligns text */
+  padding: 20px; /* Adds padding */
+  overflow: hidden; /* Prevents overflow issues */
+}
+
+.hero-text {
+  position: relative;
+  z-index: 1; /* Ensures text is above any pseudo-elements */
+  max-width: 800px; /* Controls text width */
+}
+
+.hero-text h1 {
+  font-size: 4rem; /* Larger font size */
+  margin-bottom: 20px;
+  font-weight: bold;
+  line-height: 1.2;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7); /* Black outline effect */
+  opacity: 0; /* Start with hidden text */
+  animation: fadeInHeading 1s ease-in-out forwards; /* Animation */
+}
+
+.hero-text p {
+  font-size: 2rem; /* Larger font size */
+  margin: 0;
+  font-weight: 300;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.7); /* Black outline effect */
+  opacity: 0; /* Start with hidden text */
+  animation: fadeInParagraph 1s ease-in-out 1s forwards; /* Animation with delay */
+}
+
+/* Animation keyframes */
+@keyframes fadeInHeading {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeInParagraph {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Optional: Adding a dark overlay to enhance text visibility */
+.hero::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.4); /* Dark overlay */
+  z-index: 0; /* Behind text */
+}

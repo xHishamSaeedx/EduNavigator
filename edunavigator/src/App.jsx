@@ -1,45 +1,53 @@
 import React from "react";
-import { BrowserRouter as Router, Route, Routes, Link } from "react-router-dom";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import Navbar from "./components/Navbar";
+import HeroSection from "./components/HeroSection";
 import FilterForm from "./components/FilterForm";
 import Chatbot from "./components/Chatbot";
+import AboutSection from "./components/AboutSection";
+import ContactSection from "./components/ContactSection";
+import FooterSection from "./components/FooterSection";
 
 const App = () => {
   return (
     <Router>
       <div>
-        <header>
-          <nav>
-            <ul>
-              <li>
-                <Link to="/">Home</Link>
-              </li>
-              <li>
-                <Link to="/filter">Filter Form</Link>
-              </li>
-              <li>
-                <Link to="/chatbot">Chatbot</Link>
-              </li>
-            </ul>
-          </nav>
-        </header>
+        <Navbar />
         <main>
           <Routes>
             <Route
               path="/"
               element={
-                <section>
-                  {/* Hero section */}
-                  <h1>Welcome to EduNavigator</h1>
-                  <p>Your one-stop solution to find your dream college.</p>
+                <>
+                  <HeroSection />
+                  <AboutSection />
+                </>
+              }
+            />
+            <Route
+              path="/filter"
+              element={
+                <section className="card-container">
+                  <div className="card">
+                    <FilterForm />
+                  </div>
                 </section>
               }
             />
-            <Route path="/filter" element={<FilterForm />} />
-            <Route path="/chatbot" element={<Chatbot />} />
-            {/* Add other routes for about, contact, etc. */}
+            <Route
+              path="/chatbot"
+              element={
+                <section className="card-container">
+                  <div className="card">
+                    <Chatbot />
+                  </div>
+                </section>
+              }
+            />
+            <Route path="/contact" element={<ContactSection />} />
           </Routes>
         </main>
-        <footer>{/* Add footer content here */}</footer>
+        <FooterSection />
       </div>
     </Router>
   );
