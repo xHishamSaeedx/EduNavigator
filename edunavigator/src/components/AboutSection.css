@@ -1,3 +1,30 @@
 .about {
-  padding: 20px;
+  padding: 40px; /* Increase padding for more space inside the card */
+  margin: 40px auto; /* Center the card horizontally with more space around */
+  max-width: 700px; /* Adjust width to be narrower */
+  min-height: 400px; /* Increase height to make it longer */
+  border: 2px solid #013220; /* Dark green border */
+  border-radius: 15px; /* More rounded corners */
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.5), 0 0 20px rgba(1, 50, 32, 0.4); /* Enhanced glowing effect */
+  background: rgba(
+    255,
+    255,
+    255,
+    0.3
+  ); /* Semi-transparent white background with even lower opacity */
+  text-align: center; /* Center-align text */
+}
+
+.about h2 {
+  color: #013220; /* Dark green color for heading */
+  margin-bottom: 20px; /* More space below heading */
+  font-size: 2.5rem; /* Increase font size of heading */
+}
+
+.about p {
+  color: #333333; /* Dark grey color for text */
+  line-height: 1.8; /* Increased line height for readability */
+  font-size: 1.3rem; /* Increase font size of paragraph */
+  max-width: 90%; /* Ensure text doesn't stretch too wide */
+  margin: 0 auto; /* Center the text inside the card */
 }

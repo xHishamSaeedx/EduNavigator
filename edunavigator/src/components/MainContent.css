@@ -1,0 +1,86 @@
+.main-content {
+  background-image: url("./paper2.jpg"); /* Background image */
+  background-size: cover; /* Ensures the image covers the entire container */
+  background-position: center; /* Centers the image */
+  background-repeat: no-repeat; /* Prevents the image from repeating */
+  min-height: 100vh; /* Ensures the background covers at least the viewport height */
+  padding: 20px; /* Adds padding around the content */
+}
+
+/* Styles for the "Get Guidance" section */
+.guidance-section {
+  padding: 60px; /* Increased padding for more space */
+  text-align: center;
+  background: rgba(255, 255, 255, 0); /* Transparent background */
+  margin: 60px auto; /* Increased margin for more space around the section */
+  max-width: 1200px; /* Adjust max-width for better alignment */
+}
+
+/* Styles for the guidance section heading */
+.guidance-section h2 {
+  font-size: 3rem; /* Larger font size for the heading */
+  margin-bottom: 40px; /* Increased spacing below heading */
+  color: #013220; /* Dark green color */
+}
+
+/* Styles for the guidance cards container */
+.guidance-cards {
+  display: flex;
+  justify-content: center;
+  gap: 60px; /* Increased space between cards */
+  flex-wrap: wrap; /* Allows wrapping for better responsiveness */
+}
+
+/* Styles for each guidance card */
+.guidance-card {
+  background: rgba(
+    255,
+    255,
+    255,
+    0.5
+  ); /* Semi-transparent background for cards */
+  border: 2px solid #013220; /* Dark green border */
+  border-radius: 10px;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.3); /* Light shadow around the cards */
+  padding: 30px; /* Increased padding inside cards */
+  max-width: 400px; /* Increased maximum width for each card */
+  text-align: center;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Center-align content */
+}
+
+.guidance-card img {
+  width: 100%; /* Full width of the card */
+  height: 400px; /* Fixed height to ensure consistency */
+  object-fit: cover; /* Ensures images cover the area without distortion */
+  border-radius: 8px; /* Rounded corners for the images */
+  margin-bottom: 20px; /* Increased space below the image */
+}
+
+.guidance-card h3 {
+  font-size: 1.8rem; /* Larger font size for headings */
+  color: #013220; /* Dark green color */
+  margin-bottom: 15px; /* Increased spacing below heading */
+}
+
+.guidance-card p {
+  font-size: 1.2rem; /* Larger font size for paragraphs */
+  color: #333;
+  margin-bottom: 25px; /* Increased spacing below paragraph */
+}
+
+.btn {
+  display: inline-block;
+  padding: 10px 20px;
+  background-color: #013220; /* Dark green color */
+  color: white;
+  text-decoration: none;
+  border-radius: 5px;
+  font-size: 1rem;
+}
+
+.btn:hover {
+  background-color: #024e39; /* Slightly darker green for hover effect */
+}

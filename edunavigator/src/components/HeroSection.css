@@ -2,7 +2,7 @@
   position: relative;
   width: 100%;
   height: 100vh; /* Full viewport height */
-  background: url("./hero.jpg") no-repeat center center;
+  background: url("./bgimg.jpg") no-repeat center center;
   background-size: cover;
   display: flex;
   align-items: center;
@@ -71,4 +71,11 @@
   height: 100%;
   background: rgba(0, 0, 0, 0.4); /* Dark overlay */
   z-index: 0; /* Behind text */
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
 }

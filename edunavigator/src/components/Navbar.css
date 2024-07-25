@@ -1,5 +1,5 @@
 .navbar {
-  background-color: #007bff; /* Lighter blue color */
+  background-color: #013220; /* Dark green color */
   padding: 10px 20px; /* Padding around the navbar */
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Optional shadow for a subtle 3D effect */
   display: flex;
@@ -44,13 +44,13 @@
 }
 
 .navbar a:hover {
-  background-color: #0056b3; /* Darker blue for hover effect */
+  background-color: #005b43; /* Slightly lighter green for hover effect */
   color: #ffffff; /* Ensure text remains white on hover */
   transform: scale(1.1); /* Slightly enlarge button on hover */
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Add shadow for a 3D effect */
 }
 
 .navbar a.active {
-  background-color: #003d7a; /* Darkest blue for active link */
+  background-color: #002e1a; /* Darker green for active link */
   color: #ffffff; /* Ensure text remains white for active link */
 }
