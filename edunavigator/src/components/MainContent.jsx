@@ -4,6 +4,7 @@ import FilterForm from "./FilterForm";
 import Chatbot from "./Chatbot";
 import AboutSection from "./AboutSection";
 import ContactSection from "./ContactSection";
+import HeroSection from "./HeroSection"; // Import HeroSection
 import "./MainContent.css"; // Import the CSS file
 import chatbotimg from "./chatbot3.jpg";
 import searchimg from "./filter.png";
@@ -11,6 +12,7 @@ import searchimg from "./filter.png";
 const MainContent = () => {
   return (
     <main className="main-content">
+      <HeroSection /> {/* Include HeroSection here */}
       <Routes>
         <Route path="/" element={<AboutSection />} />
         <Route
@@ -35,7 +37,6 @@ const MainContent = () => {
         />
         <Route path="/contact" element={<ContactSection />} />
       </Routes>
-
       {/* New Section */}
       <section className="guidance-section">
         <h2>Get Guidance</h2>

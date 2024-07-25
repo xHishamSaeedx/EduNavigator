@@ -4,7 +4,6 @@
   background-position: center; /* Centers the image */
   background-repeat: no-repeat; /* Prevents the image from repeating */
   min-height: 100vh; /* Ensures the background covers at least the viewport height */
-  padding: 20px; /* Adds padding around the content */
 }
 
 /* Styles for the "Get Guidance" section */
@@ -12,7 +11,7 @@
   padding: 60px; /* Increased padding for more space */
   text-align: center;
   background: rgba(255, 255, 255, 0); /* Transparent background */
-  margin: 60px auto; /* Increased margin for more space around the section */
+  margin: 60px auto 0; /* Top and side margins remain 60px, bottom margin is 0 */
   max-width: 1200px; /* Adjust max-width for better alignment */
 }
 
