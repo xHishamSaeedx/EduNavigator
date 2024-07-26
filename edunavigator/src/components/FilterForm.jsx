@@ -8,7 +8,7 @@ const FilterForm = () => {
     place: "All",
     dist: "All",
     coed: "All",
-    type: "All",
+    type_: "All",
     branch: "All",
     tuitionFeeMax: 0,
     affiliated: "All",
@@ -30,7 +30,11 @@ const FilterForm = () => {
 
   const handleFilterChange = (e) => {
     const { name, value } = e.target;
-    setFilters((prevFilters) => ({ ...prevFilters, [name]: value }));
+    // Convert tuitionFeeMax to number if the name is 'tuitionFeeMax'
+    setFilters((prevFilters) => ({
+      ...prevFilters,
+      [name]: name === "tuitionFeeMax" ? Number(value) : value,
+    }));
   };
 
   const fetchFilterOptions = async () => {
@@ -43,6 +47,7 @@ const FilterForm = () => {
   };
 
   const fetchFilteredData = async () => {
+    console.log(filters);
     try {
       const response = await axios.post(
         "http://localhost:8000/filter_colleges/",
@@ -163,8 +168,8 @@ const FilterForm = () => {
           <label>
             Select TYPE:
             <select
-              name="type"
-              value={filters.type}
+              name="type_"
+              value={filters.type_}
               onChange={handleFilterChange}
             >
               <option value="All">All</option>

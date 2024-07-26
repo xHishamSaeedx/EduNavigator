@@ -13,7 +13,12 @@ from fastapi.middleware.cors import CORSMiddleware
 import pandas as pd
 import numpy as np
 from pydantic import BaseModel
-from typing import Optional, List
+from typing import Optional
+import logging
+
+# Configure logging
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(__name__)
 # Load API key from .env file
 load_dotenv()
 api_key = os.getenv("GOOGLE_API_KEY")
@@ -21,6 +26,7 @@ api_key = os.getenv("GOOGLE_API_KEY")
 # Load the Excel file
 excel_file = 'eamcet_data.xlsx'
 df = pd.read_excel(excel_file)
+
 app = FastAPI()
 
 app.add_middleware(
@@ -32,16 +38,17 @@ app.add_middleware(
 )
 
 class FilterRequest(BaseModel):
-    caste: str
-    rank: int
+    caste: Optional[str] = None
+    rank: Optional[int] = None
     place: Optional[str] = 'All'
     dist: Optional[str] = 'All'
     coed: Optional[str] = 'All'
-    type_: Optional[str] = 'All'
+    type_: Optional[str] = 'All'  # Changed from 'type_' to 'type'
     year_of_estb: Optional[str] = 'All'
     branch: Optional[str] = 'All'
-    tuition_fee_max: Optional[int] = 0
+    tuitionFeeMax: Optional[int] = 0  # Changed from 'tuition_fee_max' to 'tuitionFeeMax'
     affiliated: Optional[str] = 'All'
+
 
 def get_pdf_text(pdf_file):
     text = ""
@@ -100,16 +107,24 @@ async def ask_question(request: Request):
         return {"reply": reply}
     return {"error": "Question not provided"}
 
+
 @app.post("/filter_colleges/")
 async def filter_colleges(filters: FilterRequest):
     try:
-        # Filter by caste and rank
-        if filters.caste not in df.columns:
-            raise HTTPException(status_code=400, detail=f"Column '{filters.caste}' not found in the dataframe.")
+        # Print the request body for debugging
+        logger.info(f"Received filters: {filters.dict()}")
+        
+        filtered_df = df.copy()  # Start with the complete DataFrame
 
-        filtered_df = df[df[filters.caste] >= filters.rank]
+        # Ensure the 'TUITION FEE' column is numeric
+        filtered_df['TUITION FEE'] = pd.to_numeric(filtered_df['TUITION FEE'], errors='coerce')
 
-        # Apply additional filters
+        # Apply filters
+        if filters.caste and filters.rank:
+            if filters.caste not in df.columns:
+                raise HTTPException(status_code=400, detail=f"Column '{filters.caste}' not found in the dataframe.")
+            filtered_df = filtered_df[filtered_df[filters.caste] >= filters.rank]
+
         if filters.place != 'All':
             filtered_df = filtered_df[filtered_df['PLACE'] == filters.place]
         if filters.dist != 'All':
@@ -122,20 +137,37 @@ async def filter_colleges(filters: FilterRequest):
             filtered_df = filtered_df[filtered_df['YEAR OF ESTB'] == filters.year_of_estb]
         if filters.branch != 'All':
             filtered_df = filtered_df[filtered_df['BRANCH'] == filters.branch]
-        if filters.tuition_fee_max > 0:
-            filtered_df = filtered_df[filtered_df['TUITION FEE'] <= filters.tuition_fee_max]
+        
+        # Only apply the tuition fee filter if tuition_fee_max is greater than 0
+        if filters.tuitionFeeMax > 0:
+            filtered_df = filtered_df[filtered_df['TUITION FEE'] <= filters.tuitionFeeMax]
+        elif filters.tuitionFeeMax == 0:
+            logger.info("No filter applied for tuition fee as tuitionFeeMax is 0.")
+
         if filters.affiliated != 'All':
             filtered_df = filtered_df[filtered_df['AFFILIATED'] == filters.affiliated]
 
-        # Sort the dataframe in ascending order by the selected caste column
-        sorted_df = filtered_df.sort_values(by=filters.caste)
+        # Debug print before sorting
+        logger.info(f"Filtered DataFrame before sorting: {filtered_df.head()}")
+
+        # Sort the dataframe by the selected caste column if provided
+        if filters.caste and filters.caste in df.columns:
+            sorted_df = filtered_df.sort_values(by=filters.caste)
+        else:
+            sorted_df = filtered_df
+
+        # Handle NaN and infinity values
+        sorted_df = sorted_df.replace([float('inf'), float('-inf')], float('nan')).fillna(0)
 
         # Convert to JSON
         result = sorted_df.to_dict(orient='records')
         return result
 
     except Exception as e:
+        # Log the exception and return an error response
+        logger.error(f"Error occurred: {str(e)}")
         raise HTTPException(status_code=500, detail=str(e))
+
 
 @app.get("/filter_options/")
 async def filter_options():

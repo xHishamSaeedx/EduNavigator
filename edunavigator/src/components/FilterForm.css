@@ -1,0 +1,53 @@
+/* Container for the table to handle overflow and scrolling */
+.table-container {
+  max-width: 100%;
+  overflow-x: auto;
+  margin: 20px 0;
+}
+
+/* Table styling */
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+th,
+td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: left;
+}
+
+th {
+  background-color: #f4f4f4;
+}
+
+/* Pagination styling */
+.pagination {
+  display: flex;
+  justify-content: center;
+  margin: 20px 0;
+}
+
+.pagination button {
+  border: 1px solid #ddd;
+  padding: 8px 12px;
+  margin: 0 4px;
+  cursor: pointer;
+  background-color: #f4f4f4;
+  border-radius: 4px;
+}
+
+.pagination button:hover {
+  background-color: #e0e0e0;
+}
+
+.pagination button.active {
+  background-color: #007bff;
+  color: white;
+}
+
+.pagination button:disabled {
+  cursor: not-allowed;
+  opacity: 0.6;
+}

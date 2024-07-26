@@ -1,5 +1,5 @@
 import React from "react";
-import { Route, Routes } from "react-router-dom";
+import { Route, Routes, useLocation } from "react-router-dom";
 import FilterForm from "./FilterForm";
 import Chatbot from "./Chatbot";
 import AboutSection from "./AboutSection";
@@ -10,9 +10,16 @@ import chatbotimg from "./chatbot3.jpg";
 import searchimg from "./filter.png";
 
 const MainContent = () => {
+  const location = useLocation();
+
+  // Determine if the current route is one of the routes where you don't want to show the HeroSection
+  const hideHeroSection =
+    location.pathname === "/filter" || location.pathname === "/chatbot";
+
   return (
     <main className="main-content">
-      <HeroSection /> {/* Include HeroSection here */}
+      {!hideHeroSection && <HeroSection />}{" "}
+      {/* Conditionally render HeroSection */}
       <Routes>
         <Route path="/" element={<AboutSection />} />
         <Route

@@ -5,7 +5,7 @@
   box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
   padding: 60px; /* Further increased padding */
   max-width: 1000px; /* Further increased max width */
-  margin: 40px auto;
+  margin: 80px auto 40px; /* Increased top margin to move the container down */
   text-align: center;
 }
 
