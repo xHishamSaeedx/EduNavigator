@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import "./FilterForm.css"; // Import CSS for pagination styling
 
 const FilterForm = () => {
   const [filters, setFilters] = useState({
@@ -23,6 +24,8 @@ const FilterForm = () => {
     BRANCH: [],
     AFFILIATED: [],
   });
+  const [currentPage, setCurrentPage] = useState(1);
+  const [itemsPerPage] = useState(10); // Change this value to adjust the number of items per page
 
   const toggleFilters = () => {
     setShowFilters(!showFilters);
@@ -30,7 +33,6 @@ const FilterForm = () => {
 
   const handleFilterChange = (e) => {
     const { name, value } = e.target;
-    // Convert tuitionFeeMax to number if the name is 'tuitionFeeMax'
     setFilters((prevFilters) => ({
       ...prevFilters,
       [name]: name === "tuitionFeeMax" ? Number(value) : value,
@@ -47,7 +49,6 @@ const FilterForm = () => {
   };
 
   const fetchFilteredData = async () => {
-    console.log(filters);
     try {
       const response = await axios.post(
         "http://localhost:8000/filter_colleges/",
@@ -68,13 +69,23 @@ const FilterForm = () => {
     fetchFilterOptions();
   }, []);
 
+  // Pagination logic
+  const indexOfLastItem = currentPage * itemsPerPage;
+  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+  const currentItems = filteredData.slice(indexOfFirstItem, indexOfLastItem);
+  const totalPages = Math.ceil(filteredData.length / itemsPerPage);
+
+  const handlePageChange = (pageNumber) => {
+    setCurrentPage(pageNumber);
+  };
+
   // Get column names from the filtered data for table headers
   const columns = filteredData.length > 0 ? Object.keys(filteredData[0]) : [];
 
   return (
     <div>
       <h1>College Finder</h1>
-      <button onClick={toggleFilters}>
+      <button className="toggle-filters" onClick={toggleFilters}>
         {showFilters ? "Close Filters" : "FIND YOUR DREAM COLLEGE"}
       </button>
       {showFilters && (
@@ -225,27 +236,58 @@ const FilterForm = () => {
       )}
       <div>
         <h2>Results</h2>
-        {filteredData.length > 0 ? (
-          <table>
-            <thead>
-              <tr>
-                {columns.map((col, index) => (
-                  <th key={index}>{col}</th>
-                ))}
-              </tr>
-            </thead>
-            <tbody>
-              {filteredData.map((row, index) => (
-                <tr key={index}>
-                  {columns.map((col, idx) => (
-                    <td key={idx}>{row[col]}</td>
+        {currentItems.length > 0 ? (
+          <>
+            <table>
+              <thead>
+                <tr>
+                  {columns.map((col, index) => (
+                    <th key={index}>{col}</th>
                   ))}
                 </tr>
-              ))}
-            </tbody>
-          </table>
+              </thead>
+              <tbody>
+                {currentItems.map((row, index) => (
+                  <tr key={index}>
+                    {columns.map((col, idx) => (
+                      <td key={idx}>{row[col]}</td>
+                    ))}
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+            <div className="pagination-container">
+              <button
+                className="pagination-button"
+                onClick={() => handlePageChange(currentPage - 1)}
+                disabled={currentPage === 1}
+              >
+                Previous
+              </button>
+              <div className="pagination-scroll">
+                {[...Array(totalPages)].map((_, index) => (
+                  <button
+                    key={index}
+                    className={`pagination-button ${
+                      currentPage === index + 1 ? "active" : ""
+                    }`}
+                    onClick={() => handlePageChange(index + 1)}
+                  >
+                    {index + 1}
+                  </button>
+                ))}
+              </div>
+              <button
+                className="pagination-button"
+                onClick={() => handlePageChange(currentPage + 1)}
+                disabled={currentPage === totalPages}
+              >
+                Next
+              </button>
+            </div>
+          </>
         ) : (
-          <p>No results found</p>
+          <p>No data available</p>
         )}
       </div>
     </div>

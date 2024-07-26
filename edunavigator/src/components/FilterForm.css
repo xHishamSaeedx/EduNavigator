@@ -1,53 +1,185 @@
-/* Container for the table to handle overflow and scrolling */
-.table-container {
-  max-width: 100%;
-  overflow-x: auto;
-  margin: 20px 0;
+/* FilterForm.css */
+
+/* Container for the filter form */
+form {
+  background-color: #f9f9f9;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 20px;
+  margin: 20px auto; /* Center the form horizontally */
+  max-width: 600px; /* Adjust max width as needed */
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  text-align: center; /* Center the text inside the form */
 }
 
-/* Table styling */
+/* Filter section heading */
+form h2 {
+  font-size: 18px;
+  margin-bottom: 15px;
+  color: #333;
+}
+
+/* Style for labels */
+form label {
+  display: block;
+  margin-bottom: 10px;
+  font-size: 14px;
+  color: #333;
+}
+
+/* Style for select and input elements */
+form select,
+form input[type="number"] {
+  width: 100%;
+  padding: 8px;
+  margin-top: 5px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 14px;
+}
+
+form select:focus,
+form input[type="number"]:focus {
+  border-color: #007bff;
+  outline: none;
+}
+
+/* Larger toggle button styling */
+button.toggle-filters {
+  display: inline-block;
+  background-color: #007bff;
+  color: white;
+  padding: 15px 25px; /* Larger padding for a bigger button */
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 18px;
+  transition: background-color 0.3s;
+  margin-bottom: 40px;
+}
+
+button.toggle-filters:hover {
+  background-color: #0056b3;
+}
+
+/* Submit button styling */
+form button[type="submit"] {
+  display: inline-block;
+  background-color: #007bff;
+  color: white;
+  padding: 15px 25px; /* Larger padding for a bigger button */
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+  margin-top: 10px;
+  transition: background-color 0.3s;
+}
+
+form button[type="submit"]:hover {
+  background-color: #0056b3;
+}
+
+/* Results table styling */
 table {
   width: 100%;
   border-collapse: collapse;
+  margin-top: 20px;
 }
 
-th,
-td {
-  border: 1px solid #ddd;
-  padding: 8px;
-  text-align: left;
-}
-
-th {
-  background-color: #f4f4f4;
-}
-
-/* Pagination styling */
-.pagination {
-  display: flex;
-  justify-content: center;
-  margin: 20px 0;
-}
-
-.pagination button {
-  border: 1px solid #ddd;
+table th,
+table td {
   padding: 8px 12px;
-  margin: 0 4px;
-  cursor: pointer;
-  background-color: #f4f4f4;
-  border-radius: 4px;
+  border: 1px solid #ddd;
+  text-align: left;
+  font-size: 14px;
 }
 
-.pagination button:hover {
+table th {
+  background-color: #f4f4f4;
+  font-size: 8px;
+}
+
+table td {
+  word-break: break-word;
+}
+
+/* Pagination container and buttons */
+.pagination-container {
+  display: flex;
+  align-items: center;
+  margin-top: 20px;
+  overflow: hidden;
+}
+
+.pagination-scroll {
+  display: flex;
+  overflow-x: auto;
+  white-space: nowrap;
+}
+
+.pagination-button {
+  margin: 0 5px;
+  padding: 5px 10px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  background-color: #f9f9f9;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.pagination-button.active {
+  background-color: #007bff;
+  color: white;
+  border: 1px solid #007bff;
+}
+
+.pagination-button:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+button {
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+button:hover {
   background-color: #e0e0e0;
 }
 
-.pagination button.active {
+/* FilterForm.css */
+
+/* Button for toggling filters */
+button.toggle-filters {
+  display: block;
   background-color: #007bff;
   color: white;
+  padding: 15px 30px; /* Larger padding for a bigger button */
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 18px; /* Larger font size */
+  transition: background-color 0.3s;
+  margin: 40px auto; /* Center the button horizontally */
+  text-align: center;
 }
 
-.pagination button:disabled {
-  cursor: not-allowed;
-  opacity: 0.6;
+button.toggle-filters:hover {
+  background-color: #0056b3;
 }
+
+/* Form container styling */
+form {
+  background-color: #f9f9f9;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 20px;
+  margin: 20px auto; /* Center the form horizontally */
+  max-width: 600px; /* Adjust max width as needed */
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  text-align: center; /* Center the text inside the form */
+}
+
+/* Other form and table styles remain unchanged */
