@@ -11,7 +11,7 @@ const FilterForm = () => {
     coed: "All",
     type_: "All",
     branch: "All",
-    tuitionFeeMax: 0,
+    tuitionFeeMax: "",
     affiliated: "All",
   });
   const [showFilters, setShowFilters] = useState(false);
@@ -35,7 +35,8 @@ const FilterForm = () => {
     const { name, value } = e.target;
     setFilters((prevFilters) => ({
       ...prevFilters,
-      [name]: name === "tuitionFeeMax" ? Number(value) : value,
+      [name]:
+        name === "tuitionFeeMax" ? (value === "" ? "" : Number(value)) : value,
     }));
   };
 
@@ -77,17 +78,38 @@ const FilterForm = () => {
 
   const handlePageChange = (pageNumber) => {
     setCurrentPage(pageNumber);
+    // Scroll to the top of the table
+    const tableElement = document.querySelector(".table-wrapper");
+    if (tableElement) {
+      tableElement.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
   };
 
   // Get column names from the filtered data for table headers
   const columns = filteredData.length > 0 ? Object.keys(filteredData[0]) : [];
 
   return (
-    <div>
-      <h1>College Finder</h1>
+    <div className="filter-form-container">
+      <h1 className="college-finder-header">College Finder</h1>
+
+      {!showFilters && !currentItems.length && (
+        <div className="empty-state">
+          <div className="empty-state-icon">🎓</div>
+          <p>
+            Welcome to College Finder! Start your journey by clicking the button
+            below to find the perfect college for you.
+          </p>
+          <p>
+            Use our advanced filters to narrow down your options based on your
+            preferences.
+          </p>
+        </div>
+      )}
+
       <button className="toggle-filters" onClick={toggleFilters}>
-        {showFilters ? "Close Filters" : "FIND YOUR DREAM COLLEGE"}
+        {showFilters ? "Close Filters" : "Find Your Dream College"}
       </button>
+
       {showFilters && (
         <form onSubmit={handleSubmit}>
           <h2>Filter Colleges</h2>
@@ -214,6 +236,7 @@ const FilterForm = () => {
               value={filters.tuitionFeeMax}
               onChange={handleFilterChange}
               min="0"
+              placeholder="Enter maximum fee"
             />
           </label>
           <label>
@@ -234,31 +257,36 @@ const FilterForm = () => {
           <button type="submit">Apply Filters</button>
         </form>
       )}
-      <div>
-        <h2>Results</h2>
-        {currentItems.length > 0 ? (
+
+      <div className="results-container">
+        <h2 className="results-header">Results</h2>
+        {filteredData.length > 0 ? (
           <>
-            <table>
-              <thead>
-                <tr>
-                  {columns.map((col, index) => (
-                    <th key={index}>{col}</th>
-                  ))}
-                </tr>
-              </thead>
-              <tbody>
-                {currentItems.map((row, index) => (
-                  <tr key={index}>
-                    {columns.map((col, idx) => (
-                      <td key={idx}>{row[col]}</td>
+            <div className="table-wrapper">
+              <table>
+                <thead>
+                  <tr>
+                    {columns.map((col, index) => (
+                      <th key={index}>{col}</th>
                     ))}
                   </tr>
-                ))}
-              </tbody>
-            </table>
+                </thead>
+                <tbody>
+                  {currentItems.map((row, index) => (
+                    <tr key={index}>
+                      {columns.map((col, idx) => (
+                        <td key={idx} data-label={col}>
+                          {row[col]}
+                        </td>
+                      ))}
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
             <div className="pagination-container">
               <button
-                className="pagination-button"
+                className="pagination-button prev-next"
                 onClick={() => handlePageChange(currentPage - 1)}
                 disabled={currentPage === 1}
               >
@@ -278,7 +306,7 @@ const FilterForm = () => {
                 ))}
               </div>
               <button
-                className="pagination-button"
+                className="pagination-button prev-next"
                 onClick={() => handlePageChange(currentPage + 1)}
                 disabled={currentPage === totalPages}
               >
@@ -287,7 +315,13 @@ const FilterForm = () => {
             </div>
           </>
         ) : (
-          <p>No data available</p>
+          showFilters && (
+            <div className="no-results">
+              <div className="no-results-icon">🔍</div>
+              <p>No colleges found matching your criteria.</p>
+              <p>Try adjusting your filters to see more results.</p>
+            </div>
+          )
         )}
       </div>
     </div>

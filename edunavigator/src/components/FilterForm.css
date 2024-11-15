@@ -10,6 +10,7 @@ form {
   max-width: 600px; /* Adjust max width as needed */
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   text-align: center; /* Center the text inside the form */
+  animation: slideDown 0.3s ease-out;
 }
 
 /* Filter section heading */
@@ -40,146 +41,324 @@ form input[type="number"] {
 
 form select:focus,
 form input[type="number"]:focus {
-  border-color: #007bff;
+  border-color: #2e7d32;
   outline: none;
 }
 
 /* Larger toggle button styling */
 button.toggle-filters {
-  display: inline-block;
-  background-color: #007bff;
+  display: block;
+  background: linear-gradient(45deg, #2e7d32, #4caf50);
   color: white;
-  padding: 15px 25px; /* Larger padding for a bigger button */
+  padding: 20px 40px;
   border: none;
-  border-radius: 8px;
+  border-radius: 50px;
   cursor: pointer;
-  font-size: 18px;
-  transition: background-color 0.3s;
-  margin-bottom: 40px;
+  font-size: 1.2rem;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  margin: 30px auto;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  box-shadow: 0 4px 15px rgba(76, 175, 80, 0.2);
 }
 
 button.toggle-filters:hover {
-  background-color: #0056b3;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(76, 175, 80, 0.3);
+  background: linear-gradient(45deg, #4caf50, #2e7d32);
 }
 
 /* Submit button styling */
 form button[type="submit"] {
   display: inline-block;
-  background-color: #007bff;
+  background-color: #2e7d32;
   color: white;
-  padding: 15px 25px; /* Larger padding for a bigger button */
+  padding: 15px 25px;
   border: none;
   border-radius: 4px;
   cursor: pointer;
   font-size: 16px;
   margin-top: 10px;
-  transition: background-color 0.3s;
+  transition: all 0.3s ease;
 }
 
 form button[type="submit"]:hover {
-  background-color: #0056b3;
+  background-color: #1b5e20;
 }
 
 /* Results table styling */
 table {
   width: 100%;
   border-collapse: collapse;
-  margin-top: 20px;
+  margin: 20px 0;
+  background-color: white;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+  border-radius: 8px;
+  overflow: hidden;
 }
 
-table th,
-table td {
-  padding: 8px 12px;
-  border: 1px solid #ddd;
+thead {
+  background-color: #1a237e;
+  color: white;
+}
+
+th {
+  padding: 15px;
   text-align: left;
+  font-weight: 600;
+  text-transform: uppercase;
   font-size: 14px;
 }
 
-table th {
-  background-color: #f4f4f4;
-  font-size: 8px;
+td {
+  padding: 12px 15px;
+  border-bottom: 1px solid #eee;
+  font-size: 14px;
 }
 
-table td {
-  word-break: break-word;
+tbody tr:hover {
+  background-color: #f5f5f5;
+  transition: background-color 0.2s ease;
+}
+
+/* Zebra striping for better readability */
+tbody tr:nth-child(even) {
+  background-color: #f8f9fa;
+}
+
+/* Make the table responsive */
+@media screen and (max-width: 768px) {
+  table {
+    display: block;
+    overflow-x: auto;
+    white-space: nowrap;
+  }
+
+  thead {
+    display: none; /* Optional: hide headers on mobile */
+  }
+
+  td {
+    display: block;
+    text-align: right;
+    padding-left: 50%;
+    position: relative;
+  }
+
+  td:before {
+    content: attr(data-label);
+    position: absolute;
+    left: 0;
+    width: 50%;
+    padding-left: 15px;
+    font-weight: 600;
+    text-align: left;
+  }
+}
+
+/* Results section styling */
+.results-container {
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  margin-top: 20px;
+  padding-right: calc(20px + 1rem);
+  overflow-x: auto;
+}
+
+.results-header {
+  margin-bottom: 20px;
+  color: #2e7d32;
+  font-size: 24px;
 }
 
 /* Pagination container and buttons */
 .pagination-container {
   display: flex;
   align-items: center;
-  margin-top: 20px;
-  overflow: hidden;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 30px;
+  padding: 20px 0;
+  border-top: 1px solid #eee;
 }
 
 .pagination-scroll {
   display: flex;
+  gap: 5px;
+  padding: 0 10px;
+  max-width: 70%;
   overflow-x: auto;
-  white-space: nowrap;
+  scrollbar-width: thin;
+  -ms-overflow-style: none;
+  padding-bottom: 10px;
+}
+
+.pagination-scroll::-webkit-scrollbar {
+  height: 4px;
+}
+
+.pagination-scroll::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 4px;
+}
+
+.pagination-scroll::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 4px;
 }
 
 .pagination-button {
-  margin: 0 5px;
-  padding: 5px 10px;
-  border: 1px solid #ddd;
+  min-width: 40px;
+  height: 40px;
+  padding: 0 15px;
+  border: 1px solid #e0e0e0;
   border-radius: 4px;
-  background-color: #f9f9f9;
+  background-color: white;
+  color: #333;
+  font-weight: 500;
   cursor: pointer;
-  white-space: nowrap;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.pagination-button:hover:not(:disabled) {
+  background-color: #f5f5f5;
+  border-color: #2e7d32;
+  color: #2e7d32;
 }
 
 .pagination-button.active {
-  background-color: #007bff;
+  background-color: #2e7d32;
   color: white;
-  border: 1px solid #007bff;
+  border-color: #2e7d32;
 }
 
 .pagination-button:disabled {
+  background-color: #f5f5f5;
+  color: #999;
   cursor: not-allowed;
-  opacity: 0.5;
+  border-color: #e0e0e0;
 }
 
-button {
-  background: none;
-  border: none;
-  cursor: pointer;
+/* Previous/Next buttons */
+.pagination-button.prev-next {
+  min-width: 100px;
+  font-weight: 600;
 }
 
-button:hover {
-  background-color: #e0e0e0;
-}
-
-/* FilterForm.css */
-
-/* Button for toggling filters */
-button.toggle-filters {
-  display: block;
-  background-color: #007bff;
-  color: white;
-  padding: 15px 30px; /* Larger padding for a bigger button */
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
-  font-size: 18px; /* Larger font size */
-  transition: background-color 0.3s;
-  margin: 40px auto; /* Center the button horizontally */
-  text-align: center;
-}
-
-button.toggle-filters:hover {
-  background-color: #0056b3;
-}
-
-/* Form container styling */
-form {
-  background-color: #f9f9f9;
-  border: 1px solid #ddd;
-  border-radius: 8px;
+/* Update the results container to ensure proper scrolling */
+.results-container {
   padding: 20px;
-  margin: 20px auto; /* Center the form horizontally */
-  max-width: 600px; /* Adjust max width as needed */
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  text-align: center; /* Center the text inside the form */
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  margin-top: 20px;
 }
 
-/* Other form and table styles remain unchanged */
+.table-wrapper {
+  width: 100%;
+  overflow-x: auto;
+  margin-bottom: 20px;
+  /* Add padding for scrollbar */
+  padding-bottom: 12px;
+}
+
+/* Update responsive styles */
+@media screen and (max-width: 768px) {
+  .pagination-container {
+    flex-wrap: wrap;
+    gap: 15px;
+  }
+
+  .pagination-scroll {
+    order: 2;
+    max-width: 100%;
+    justify-content: center;
+  }
+
+  .pagination-button.prev-next {
+    min-width: 80px;
+  }
+}
+
+/* Add styles for the main heading */
+.college-finder-header {
+  text-align: center;
+  color: #2e7d32;
+  font-size: 2.5rem;
+  margin: 0 0 40px 0;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+/* Style for empty state container */
+.empty-state {
+  text-align: center;
+  padding: 40px 20px;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  margin: 20px auto;
+  max-width: 600px;
+}
+
+.empty-state p {
+  color: #666;
+  font-size: 1.1rem;
+  line-height: 1.6;
+  margin: 20px 0;
+}
+
+.empty-state-icon {
+  font-size: 48px;
+  color: #007bff;
+  margin-bottom: 20px;
+}
+
+/* Style for no results message */
+.no-results {
+  text-align: center;
+  padding: 40px 20px;
+  background-color: #f8f9fa;
+  border-radius: 8px;
+  margin: 20px 0;
+}
+
+.no-results p {
+  color: #666;
+  font-size: 1.1rem;
+  margin: 10px 0;
+}
+
+.no-results-icon {
+  font-size: 48px;
+  color: #666;
+  margin-bottom: 20px;
+}
+
+/* Add some animation for form appearance */
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Add container for the entire component */
+.filter-form-container {
+  padding-top: 80px;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding-left: 20px;
+  padding-right: 20px;
+}
