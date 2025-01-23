@@ -1,0 +1,9 @@
+pip install streamlit==1.18.1
+pip install google-generativeai=0.3.2
+pip install python-dotenv==1.0.0
+pip install langchain==0.1.11
+pip install PyPDF2==3.0.1
+pip install chromadb==0.4.23
+pip install faiss-cpu==1.7.4
+pip install langchain_google_genai==0.0.9
+pip install langchain-community==0.0.25
